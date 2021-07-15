@@ -1,8 +1,15 @@
-import path from "path";
-import express from "express";
-import fs from "fs";
-import { renderToString } from '@vue/server-renderer';
-import manifest from './dist/server/ssr-manifest.json';
+// import path from "path";
+// import express from "express";
+// import fs from "fs";
+// import { renderToString } from '@vue/server-renderer';
+//// @ts-ignore
+// import manifest from './dist/server/ssr-manifest.json';
+
+const path = require('path');
+const fs = require('fs');
+const express = require('express');
+const { renderToString } = require('@vue/server-renderer');
+const manifest = require('./dist/server/ssr-manifest.json');
 
 const server = express();
 

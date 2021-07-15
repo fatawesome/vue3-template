@@ -1,5 +1,5 @@
 <template>
-  <div>index fuck</div>
+  <div>index lol</div>
 </template>
 
 <script>

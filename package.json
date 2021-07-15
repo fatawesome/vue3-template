@@ -4,18 +4,15 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "start:dev": "cross-env NODE_ENV=development node server",
-    "start:prod": "cross-env NODE_ENV=production node server",
-    "build:prod": "rimraf dist && npm run build:client:prod && npm run build:server:prod",
-    "build:dev": "rimraf dist && npm run build:client:dev && npm run build:server:dev",
-    "build:client:prod": "webpack --env prod --config build/webpack.client.config.js ",
-    "build:server:prod": "webpack --env prod --config build/webpack.server.config.js --progress --profile --json > stats.server.json",
-    "build:client:dev": "webpack --env dev --config build/webpack.client.config.js ",
-    "build:server:dev": "webpack --env dev --config build/webpack.server.config.js --progress --profile --json > stats.server.json",
-    "watch:server": "cross-env NODE_ENV=development webpack --env dev --config build/webpack.server.config.js --watch",
-    "watch:client": "cross-env NODE_ENV=development webpack serve --env dev --config build/webpack.client.config.js",
-    "serve": "nodemon --exec ts-node -r tsconfig-paths/register server.ts",
-    "dev": "npm-run-all --parallel watch:client watch:server serve"
+    "build:client:prod": "cross-env NODE_ENV=production webpack --env prod --config build/webpack.client.config.js",
+    "build:server:prod": "cross-env NODE_ENV=production webpack --env prod --config build/webpack.server.config.js",
+    "build:prod": "npm run build:client:prod && npm run build:server:prod",
+    "serve:prod": "node server.js",
+    "start:prod": "rimraf dist && npm run build:prod && npm run serve:prod",
+    "watch:server": "cross-env NODE_ENV=development webpack --env dev --config build/webpack.server.config.js --progress --watch",
+    "watch:client": "cross-env NODE_ENV=development webpack serve --env dev --config build/webpack.client.config.js --progress",
+    "serve:dev": "nodemon --exec node server.js",
+    "dev": "rimraf dist && npm-run-all --parallel watch:client watch:server serve:dev"
   },
   "dependencies": {
     "axios": "^0.21.1",

@@ -32,6 +32,7 @@ const devConfig = {
     },
   },
   output: {
+    publicPath: 'http://localhost:9999/',
     hotUpdateChunkFilename: 'hot/[id].[fullhash].hot-update.js',
     hotUpdateMainFilename: 'hot/[runtime].[fullhash].hot-update.json'
   }
@@ -43,7 +44,7 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, '../dist/client'),
-    publicPath: 'http://localhost:9999/'
+    publicPath: '/'
   },
   optimization: {
     splitChunks: {

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module":"CommonJS",
+    "module": "esnext",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -38,7 +38,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "server.ts"
+    "server.js"
   ],
   "exclude": [
     "node_modules"
