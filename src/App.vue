@@ -8,7 +8,7 @@
         <span>About</span>
       </router-link>
       <div class="github">
-        Built with Vue 3
+        Built with Vue 4
       </div>
     </nav>
   </header>
@@ -19,8 +19,19 @@
   </router-view>
 </template>
 
-<script setup>
+<script lang="ts">
+const utils = import('auth/utils');
 
+export default {
+  name: 'App',
+  created() {
+    // TODO: delete
+    console.log('-'.repeat(80));
+    console.log(`isServer: ${process.env.IS_SERVER}`);
+    console.log(utils);
+    console.log('-'.repeat(80));
+  }
+};
 </script>
 
 <style lang="scss">

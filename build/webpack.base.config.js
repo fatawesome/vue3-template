@@ -9,6 +9,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = (env = {}) => ({
   mode: env.prod ? 'production' : 'development',
   output: {
@@ -167,8 +169,8 @@ module.exports = (env = {}) => ({
         : 'css/[name].chunk.css',
     }),
     new webpack.DefinePlugin({
-      __VUE_OPTIONS_API__: 'true',
-      __VUE_PROD_DEVTOOLS__: 'false',
-    }),
+      __VUE_OPTIONS_API__: false,
+      __VUE_PROD_DEVTOOLS__: false,
+    })
   ],
 });

@@ -2,11 +2,17 @@
 
 /* */
 
-const { merge } = require('webpack-merge');
-const base = require('./webpack.base.config');
-const nodeExternals = require('webpack-node-externals');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const path = require('path');
+const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
+const { merge } = require('webpack-merge');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const { NodeModuleFederation } = require('@telenko/node-mf');
+
+const base = require('./webpack.base.config');
+const { federationConfig } = require('./federation.config');
+
+const mfConf = federationConfig({ isServer: true });
 
 module.exports = (env = {}) =>
   merge(base(env), {
@@ -14,6 +20,7 @@ module.exports = (env = {}) =>
     entry: {
       app: [
         './src/server-entry.ts'
+        // './server.js'
       ]
     },
     output: {
@@ -27,6 +34,8 @@ module.exports = (env = {}) =>
     }),
     plugins: [
       new WebpackManifestPlugin({ fileName: 'ssr-manifest.json', publicPath: '' }),
+      new NodeModuleFederation(mfConf),
+      new webpack.DefinePlugin({ 'process.env.IS_SERVER': true })
     ],
     optimization: {
       splitChunks: false,

@@ -7,8 +7,12 @@ const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlugin;
 
 const base = require('./webpack.base.config');
+const { federationConfig } = require('./federation.config');
+
+const mfConf = federationConfig({ isServer: false });
 
 const devConfig = {
   devtool: 'source-map',
@@ -40,7 +44,7 @@ const devConfig = {
 
 const config = {
   entry: {
-    app: './src/client-entry.ts'
+    app: './src/main.ts'
   },
   output: {
     path: path.resolve(__dirname, '../dist/client'),
@@ -60,11 +64,13 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: '/public/index.html'
-    })
+    }),
+    new ModuleFederationPlugin(mfConf),
+    new webpack.DefinePlugin({ 'process.env.IS_SERVER': false })
   ]
 };
 
-module.exports = (env = {}) => {
+module.exports = (env) => {
   return merge(
     base(env),
     config,

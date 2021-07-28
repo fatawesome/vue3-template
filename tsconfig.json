@@ -15,7 +15,7 @@
       "@/*": [
         "src/*"
       ],
-      "@components/*": ["src/components/*"],
+      "@components/*": ["src/components/*"]
     },
     "lib": [
       "esnext",
@@ -31,7 +31,11 @@
       "@vue/reactivity/dist/reactivity",
       "@vue/runtime-core/dist/runtime-core",
       "@vue/runtime-dom/dist/runtime-dom",
-    ]
+      "./@types/I8AuthModal",
+      "./@types/I8AuthUtils",
+      "node"
+    ],
+    "typeRoots": ["./@types/"]
   },
   "files": ["src/shims-vue.d.ts", "src/vuex.d.ts"],
   "include": [
