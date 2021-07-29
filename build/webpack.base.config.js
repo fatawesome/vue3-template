@@ -7,6 +7,7 @@ const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -38,12 +39,6 @@ module.exports = (env = {}) => ({
     noParse: /es6-promise\.js$/, // avoid webpack shimming
     rules: [
       {
-        test: /\.vue$/,
-        use: [
-          { loader: 'vue-loader' }
-        ]
-      },
-      {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
@@ -69,17 +64,34 @@ module.exports = (env = {}) => ({
         ]
       },
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.vue$/,
+        use: {
+          loader: 'vue-loader',
+          options: {
+            extractCSS: true
+          }
+        }
+      },
+      {
+        test: /\.css$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: './dist'
-            }
+            options: { publicPath: './dist' }
           },
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
+          { loader: 'css-loader' },
+          { loader: 'postcss-loader' }
+        ]
+      },
+      {
+        test: /\.(sa|sc)ss$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: { publicPath: './dist' }
+          },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
         ]
       },
       {
