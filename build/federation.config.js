@@ -2,7 +2,8 @@ const dependencies = require('../package.json').dependencies;
 
 const shared = {
   vue: {
-    requiredVersion: dependencies.vue
+    requiredVersion: dependencies.vue,
+    singleton: true
   },
   'vue-router': {
     requiredVersion: dependencies['vue-router'],

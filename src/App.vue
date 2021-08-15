@@ -4,7 +4,11 @@
       Host content
     </div>
     <div class="block remote">
-      <TestComponent />
+      <TestComponent>
+        <div class="block remote-slot">
+          Slot in remote component
+        </div>
+      </TestComponent>
     </div>
   </div>
 </template>
@@ -58,6 +62,10 @@ body {
 .remote {
   background: chartreuse;
   color: black;
+}
+.remote-slot {
+  height: 50px;
+  background: chocolate;
 }
 
 </style>
