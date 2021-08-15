@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "allowJs": true,
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
@@ -33,6 +34,8 @@
       "@vue/runtime-dom/dist/runtime-dom",
       "./@types/I8AuthModal",
       "./@types/I8AuthUtils",
+      "./@types/I8LoginForm",
+      "./@types/TestComponent",
       "node"
     ],
     "typeRoots": ["./@types/"]

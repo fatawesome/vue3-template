@@ -6,7 +6,6 @@ const path = require('path');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const HTMLInlineCSSPlugin = require('html-inline-css-webpack-plugin').default;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlugin;
 
@@ -63,10 +62,10 @@ const config = {
     },
   },
   plugins: [
-    new ModuleFederationPlugin(mfConf),
     new HtmlWebpackPlugin({
-      template: '/public/index.html'
+      template: '/public/index.html',
     }),
+    new ModuleFederationPlugin(mfConf),
     new webpack.DefinePlugin({ 'process.env.IS_SERVER': false })
   ]
 };

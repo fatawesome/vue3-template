@@ -9,6 +9,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
+const MicroCssPlugin = require('./plugins/MicroCssPlugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -22,7 +23,7 @@ module.exports = (env = {}) => ({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '../src'),
-      vue: "@vue/runtime-dom"
+      // vue: "@vue/runtime-dom",
     },
     extensions: [
       '.tsx',
@@ -75,10 +76,7 @@ module.exports = (env = {}) => ({
       {
         test: /\.css$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: { publicPath: './dist' }
-          },
+          { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },
           { loader: 'postcss-loader' }
         ]
@@ -86,11 +84,9 @@ module.exports = (env = {}) => ({
       {
         test: /\.(sa|sc)ss$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: { publicPath: './dist' }
-          },
+          { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },
+          { loader: 'postcss-loader' },
           { loader: 'sass-loader' }
         ]
       },
@@ -173,16 +169,13 @@ module.exports = (env = {}) => ({
   },
   plugins: [
     new VueLoaderPlugin(),
-    new ESLintPlugin(),
+    // new ESLintPlugin(),
     new MiniCssExtractPlugin({
       filename: env.prod ? 'css/[name].[contenthash:8].css' : 'css/[name].css',
       chunkFilename: env.prod
         ? 'css/[name].[contenthash:8].chunk.css'
         : 'css/[name].chunk.css',
-    }),
-    new webpack.DefinePlugin({
-      __VUE_OPTIONS_API__: false,
-      __VUE_PROD_DEVTOOLS__: false,
     })
+    // new MicroCssPlugin({ options: true })
   ],
 });
