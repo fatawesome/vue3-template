@@ -3,11 +3,13 @@ const dependencies = require('../package.json').dependencies;
 const shared = {
   vue: {
     requiredVersion: dependencies.vue,
-    singleton: true
+    singleton: true,
+    eager: true
   },
   'vue-router': {
     requiredVersion: dependencies['vue-router'],
-    singleton: true
+    singleton: true,
+    eager: true
   },
   "@icons8/design-system": {
     requiredVersion: dependencies['@icons8/design-system']

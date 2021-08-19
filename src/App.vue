@@ -1,46 +1,43 @@
 <template>
-  <div>
-    <div class="container">
-      <div class="block host">
-        Host content
-      </div>
-      <div class="block remote">
-        <TestComponent>
-          <div class="block remote-slot">
-            Slot in remote component
-          </div>
-        </TestComponent>
-      </div>
-      <button @click="handleClick">
-        button
-      </button>
+  <div class="container">
+    <div class="block host">
+      Host content
     </div>
-    <router-view @click="handleClick" />
-    <input type="text" v-model="xproperty">
+    <div class="block remote">
+      <TestComponent>
+        <div class="block remote-slot">
+          Slot in remote component
+        </div>
+      </TestComponent>
+    </div>
+    <button @click="handleClick">
+      button
+    </button>
+    <input type="text" v-model="x">
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, defineAsyncComponent } from "vue";
 const TestComponent = defineAsyncComponent(() => import('auth/components/TestComponent'));
 
-export default {
+export default defineComponent({
   name: 'App',
   components: { TestComponent },
   data() {
     return {
-      xproperty: 'im x'
+      x: 'im x'
     };
   },
   methods: {
     handleClick() {
       // TODO: delete
       console.log('-'.repeat(80));
-      console.log('asdfasdfasdfadfadfadfsdfsdfgadfadfadfasdfadfadsfasdf');
+      console.log('blabla');
       console.log('-'.repeat(80));
     }
   }
-};
+});
 </script>
 
 <style lang="scss">
