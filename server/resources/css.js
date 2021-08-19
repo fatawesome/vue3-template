@@ -9,6 +9,10 @@ function getCSSContent(path) {
 
 function concatCSS(filePaths) {
   return filePaths.reduce(async (acc, path) => {
+    // TODO: delete
+    console.log('-'.repeat(80));
+    console.log(path);
+    console.log('-'.repeat(80));
     const css = await getCSSContent(path);
     return acc + css;
   }, '')
@@ -24,7 +28,7 @@ function injectCSS(html, manifest) {
 
   return concatCSS(cssPaths).then(raw => {
     const css = `<style>${raw}</style>`;
-    return html.toString().replace('<!--  css-placeholder  -->', css);
+    return html.toString().replace('<link rel="stylesheet" href="ya govno poel">', css);
   });
 }
 

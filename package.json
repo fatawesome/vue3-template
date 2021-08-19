@@ -15,7 +15,7 @@
     "watch:server": "cross-env NODE_ENV=development webpack --env dev --config build/webpack.server.config.js --progress --watch",
     "watch:client": "cross-env NODE_ENV=development webpack serve --env dev --config build/webpack.client.config.js --progress",
     "serve:dev": "nodemon --exec node ./server/index.js",
-    "dev": "rimraf dist && npm-run-all --parallel watch:client watch:server serve:dev"
+    "start": "rimraf dist && npm-run-all --parallel watch:client watch:server serve:dev"
   },
   "dependencies": {
     "@icons8/design-system": "^0.0.9",

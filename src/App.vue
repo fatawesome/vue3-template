@@ -1,15 +1,22 @@
 <template>
-  <div class="container">
-    <div class="block host">
-      Host content
+  <div>
+    <div class="container">
+      <div class="block host">
+        Host content
+      </div>
+      <div class="block remote">
+        <TestComponent>
+          <div class="block remote-slot">
+            Slot in remote component
+          </div>
+        </TestComponent>
+      </div>
+      <button @click="handleClick">
+        button
+      </button>
     </div>
-    <div class="block remote">
-      <TestComponent>
-        <div class="block remote-slot">
-          Slot in remote component
-        </div>
-      </TestComponent>
-    </div>
+    <router-view @click="handleClick" />
+    <input type="text" v-model="xproperty">
   </div>
 </template>
 
@@ -17,14 +24,23 @@
 import { defineComponent, defineAsyncComponent } from "vue";
 const TestComponent = defineAsyncComponent(() => import('auth/components/TestComponent'));
 
-export default defineComponent({
+export default {
   name: 'App',
   components: { TestComponent },
-  mounted() {},
+  data() {
+    return {
+      xproperty: 'im x'
+    };
+  },
   methods: {
-    handleClick() {}
+    handleClick() {
+      // TODO: delete
+      console.log('-'.repeat(80));
+      console.log('asdfasdfasdfadfadfadfsdfsdfgadfadfadfasdfadfadsfasdf');
+      console.log('-'.repeat(80));
+    }
   }
-});
+};
 </script>
 
 <style lang="scss">

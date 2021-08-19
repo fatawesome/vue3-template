@@ -7,5 +7,5 @@ const { app, router } = createApp({
 });
 
 router.isReady().then(() => {
-  app.mount('#app');
+  const vm = app.mount('#app', true);
 });

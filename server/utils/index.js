@@ -7,7 +7,7 @@ function serverBundlePath(file) {
 }
 
 function isCSS(file) {
-  return IS_CSS_RE.test(file);
+  return file.includes('css');
 }
 
 function isJS(file) {
