@@ -7,18 +7,11 @@ function getCSSContent(path) {
   return fsp.readFile(path).then(res => res.toString());
 }
 
-function concatCSS(filePaths) {
-  return filePaths.reduce(async (acc, path) => {
-    // TODO: delete
-    console.log('-'.repeat(80));
-    console.log(path);
-    console.log('-'.repeat(80));
+async function concatCSS(filePaths) {
+  return await filePaths.reduce(async (acc, path) => {
     const css = await getCSSContent(path);
-    return acc + css;
-  }, '')
-    .then(res => {
-      return res;
-    });
+    return (await acc) + css;
+  }, '');
 }
 
 function injectCSS(html, manifest) {

@@ -8,6 +8,7 @@ const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlugin;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const base = require('./webpack.base.config');
 const { federationConfig } = require('./federation.config');
@@ -42,13 +43,26 @@ const devConfig = {
   }
 };
 
-const config = {
+const config = (env = {}) => ({
   entry: {
     app: './src/main.ts'
   },
   output: {
     path: path.resolve(__dirname, '../dist/client'),
     publicPath: '/'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+        ]
+      },
+    ]
   },
   optimization: {
     splitChunks: {
@@ -65,15 +79,21 @@ const config = {
     new HtmlWebpackPlugin({
       template: '/public/index.html',
     }),
+    new MiniCssExtractPlugin({
+      filename: env.prod ? 'css/[name].[contenthash:8].css' : 'css/[name].css',
+      chunkFilename: env.prod
+        ? 'css/[name].[contenthash:8].chunk.css'
+        : 'css/[name].chunk.css',
+    }),
     new ModuleFederationPlugin(mfConf),
     new webpack.DefinePlugin({ 'process.env.IS_SERVER': false })
   ]
-};
+});
 
 module.exports = (env) => {
   return merge(
     base(env),
-    config,
+    config(env),
     process.env.NODE_ENV === 'development' ? devConfig : {}
   );
 };

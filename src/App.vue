@@ -1,29 +1,31 @@
 <template>
-  <div class="container">
-    <div class="block host">
-      Host content
+  <div>
+    <div class="header">
+      <router-link to="/">Main</router-link>
+      <router-link to="/about">About</router-link>
     </div>
-    <div class="block remote">
-      <TestComponent>
-        <div class="block remote-slot">
-          Slot in remote component
-        </div>
-      </TestComponent>
-    </div>
-    <button @click="handleClick">
-      button
-    </button>
-    <input type="text" v-model="x">
+    <router-view />
+<!--    <div class="host block">-->
+<!--      Host content-->
+<!--    </div>-->
+<!--    <div class="remote block">-->
+<!--      <TestComponent>-->
+<!--        <div class="remote-slot">-->
+<!--          Remote slot-->
+<!--        </div>-->
+<!--      </TestComponent>-->
+<!--    </div>-->
   </div>
 </template>
 
 <script>
 import { defineComponent, defineAsyncComponent } from "vue";
-const TestComponent = defineAsyncComponent(() => import('auth/components/TestComponent'));
 
 export default defineComponent({
   name: 'App',
-  components: { TestComponent },
+  components: {
+    TestComponent: defineAsyncComponent(() => import('auth/components/TestComponent'))
+  },
   data() {
     return {
       x: 'im x'
@@ -31,16 +33,13 @@ export default defineComponent({
   },
   methods: {
     handleClick() {
-      // TODO: delete
-      console.log('-'.repeat(80));
-      console.log('blabla');
-      console.log('-'.repeat(80));
+
     }
   }
 });
 </script>
 
-<style lang="scss">
+<style>
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
   Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;

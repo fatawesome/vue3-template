@@ -1,5 +1,10 @@
 <template>
-  <div>index lol</div>
+  <div class="test">
+    Index page
+    <TestComponent>
+      Slot in remote
+    </TestComponent>
+  </div>
 </template>
 
 <script>
@@ -8,17 +13,13 @@ import { defineComponent, defineAsyncComponent } from "vue";
 export default defineComponent({
   name: "index",
   components: {
-    I8LoginForm: defineAsyncComponent(() => import('auth/components/I8LoginForm'))
-  },
-  mounted() {
-    // TODO: delete
-    console.log('-'.repeat(80));
-    console.log(this.$options.components.I8LoginForm);
-    console.log('-'.repeat(80));
+    TestComponent: defineAsyncComponent(() => import('auth/components/TestComponent'))
   }
 });
 </script>
 
-<style scoped>
-
+<style lang="scss">
+.test {
+  color: coral;
+}
 </style>

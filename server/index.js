@@ -16,25 +16,25 @@ server.use('/css', express.static(path.join(__dirname, '../dist/client', 'css'))
 server.use('/hot', express.static(path.join(__dirname, '../dist/client', 'hot')));
 server.use("/", express.static(path.join(process.cwd(), "/")));
 
-// server.use(
-//   '/favicon.ico',
-//   express.static(path.join(__dirname, './dist/client', 'favicon.ico'))
-// );
-
 server.get('*', async (req, res) => {
-  const { app, router } = await createApp(req.path);
-
-  await router.push(req.url);
-  await router.isReady();
-
-  const appContent = await renderToString(app);
-
-  fs.readFile(path.join(__dirname, '../dist/client/index.html'), (err, html) => {
+  fs.readFile(path.join(__dirname, '../dist/client/index.html'), async (err, html) => {
     if (err) {
       throw err;
     }
 
-    let content = html
+    // This global variable is used by mini-css-extract-plugin fork to inject styles on server-side.
+    // In such a way we can evade FOUC problem.
+    // TODO: implement elegant solution.
+    process.env.HTML = process.env.HTML || html;
+
+    const { app, router } = await createApp(req.path);
+
+    await router.push(req.url);
+    await router.isReady();
+
+    const appContent = await renderToString(app);
+
+    let content = process.env.HTML
       .toString()
       .replace('<div id="app">', `<div id="app">${appContent}`);
     res.setHeader('Content-Type', 'text/html');

@@ -6,7 +6,6 @@ const webpack = require('webpack');
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -69,15 +68,6 @@ module.exports = (env = {}) => ({
             extractCSS: true
           }
         }
-      },
-      {
-        test: /\.(sa|sc|c)ss$/,
-        use: [
-          { loader: MiniCssExtractPlugin.loader },
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
-        ]
       },
       {
         test: /\.(png|jpe?g|gif|webp)(\?.*)?$/,
@@ -158,12 +148,9 @@ module.exports = (env = {}) => ({
   },
   plugins: [
     new VueLoaderPlugin(),
-    // new ESLintPlugin(),
-    new MiniCssExtractPlugin({
-      filename: env.prod ? 'css/[name].[contenthash:8].css' : 'css/[name].css',
-      chunkFilename: env.prod
-        ? 'css/[name].[contenthash:8].chunk.css'
-        : 'css/[name].chunk.css',
+    new webpack.DefinePlugin({
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false
     })
   ],
 });
