@@ -1,7 +1,7 @@
 const fs = require('fs');
 const fsp = require('fs').promises;
 const path = require('path');
-const { serverBundlePath, isCSS,  } = require('../utils');
+const { serverBundlePath, isCSS } = require('../utils');
 
 function getCSSContent(path) {
   return fsp.readFile(path).then(res => res.toString());
